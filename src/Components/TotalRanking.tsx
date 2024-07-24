@@ -1,9 +1,22 @@
 import React from "react";
 import styled from "styled-components";
 
-const totalRankings = [
+interface Ranking {
+  username: string;
+  days: number;
+  avatar: string;
+}
+
+const totalRankings: Ranking[] = [
   { username: "user1", days: 30, avatar: "profile2.jpg" },
-  // 다른 데이터 추가 가능
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
+  { username: "user1", days: 30, avatar: "profile2.jpg" },
 ];
 
 export default function TotalRanking() {
@@ -11,6 +24,7 @@ export default function TotalRanking() {
     <Container>
       {totalRankings.map((user, index) => (
         <RankingItem key={index}>
+          <Rank>{index + 1}등</Rank>
           <Avatar src={user.avatar} alt={user.username} />
           <Username>{user.username}</Username>
           <Days>연속 {user.days}일 달성</Days>
@@ -33,6 +47,11 @@ const RankingItem = styled.div`
   border-radius: 10px;
   padding: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+`;
+const Rank = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+  margin-right: 10px;
 `;
 
 const Avatar = styled.img`
