@@ -7,6 +7,7 @@ import Ranking from "./pages/RankingPage";
 import Wrapup from "./pages/WrapupPage";
 import LoginPage from "./pages/LoginPage";
 import Clockpage from "./pages/Clockpage";
+import Mypage from "./pages/Mypage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/wrapup" element={<Wrapup />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/clock" element={<Clockpage />} />
+          <Route path="/mypage" element={<Mypage />} />
         </Routes>
       </BrowserRouter>
     </div>
