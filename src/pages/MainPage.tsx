@@ -28,7 +28,7 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   img {
-    width: 50%;
+    width: 30%;
   }
   div {
     font-size: 23px;
@@ -40,6 +40,7 @@ const Container = styled.div`
 
 const Introduce = styled.div`
   display: flex;
+  justify-content: space-evenly;
   div {
     font-size: 18px;
   }

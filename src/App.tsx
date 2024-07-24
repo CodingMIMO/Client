@@ -6,6 +6,7 @@ import Mainpage from "./pages/MainPage";
 import Ranking from "./pages/RankingPage";
 import Wrapup from "./pages/WrapupPage";
 import LoginPage from "./pages/LoginPage";
+import Clockpage from "./pages/Clockpage";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/ranking" element={<Ranking />} />
           <Route path="/wrapup" element={<Wrapup />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/clock" element={<Clockpage />} />
         </Routes>
       </BrowserRouter>
     </div>
