@@ -16,6 +16,7 @@ export default function Header() {
         <NavItem onClick={() => navigate("/wrapup")}>회고</NavItem>
         <NavItem onClick={() => navigate("/mypage")}>마이페이지</NavItem>
         <NavItem onClick={() => navigate("/login")}>로그인</NavItem>
+        <NavItem onClick={() => navigate("/study")}>스터디</NavItem>
       </Nav>
     </Container>
   );
