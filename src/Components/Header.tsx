@@ -8,7 +8,14 @@ export default function Header() {
     <Container>
       <LogoContainer onClick={() => navigate("/")}>
         <LogoImage src="sun1.png" alt="logo" />
-        <div>CodingMIMO</div>
+        <div>
+          <Title>
+            당하그
+          </Title>
+          <SubTitle>
+            <BlackText>당</BlackText>신의 <BlackText>하</BlackText>루를 <BlackText>그</BlackText>려드립니다.
+          </SubTitle>
+        </div>
       </LogoContainer>
 
       <Nav>
@@ -31,8 +38,9 @@ const Container = styled.div`
 `;
 
 const LogoImage = styled.img`
-  width: 50px;
-  height: 50px;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
 `;
 
 const Nav = styled.div`
@@ -56,4 +64,19 @@ const LogoContainer = styled.div`
   &:hover {
     color: yellow;
   }
+`;
+
+const Title = styled.div`
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 5px;
+`;
+
+const SubTitle = styled.div`
+  font-size: 16px;
+  color: gray;
+`;
+
+const BlackText = styled.span`
+  color: #FFE14F;
 `;

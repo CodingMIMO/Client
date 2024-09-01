@@ -16,7 +16,7 @@ const Reflexion: React.FC<Props> = ({ onNext }) => {
   return (
     <Container>
       <Title>
-        오늘의 미라클모닝 성공을 축하드려요!
+        오늘도 수고많았어요! 🐾
         <Title>회고를 작성하고 나만의 프로필 이미지를 만들어보세요.</Title>
       </Title>
       <Form onSubmit={handleSubmit}>
