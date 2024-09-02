@@ -11,7 +11,7 @@ const Reflexion: React.FC<Props> = ({ onNext }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onNext();
-  };
+  }; 
 
   return (
     <Container>

@@ -8,15 +8,15 @@ export default function Mainpage() {
       <img src="sun2.png" alt="sun2" />
       <Introduce>
         <img src="people1.png" alt="person1" />
-        <div>매일 오전 10시까지 하루 일정을 계획해요!</div>
+        <div>✅ 매일 오전 10시까지 하루 일정을 계획해요!</div>
       </Introduce>
       <Introduce>
-        <div>24시간 이내에 회고를 작성하면 나만의 프로필 이미지를 만들 수 있어요!</div>
+        <div>🌅 24시간 이내에 회고를 작성하면 stable-diffusion이 나만의 프로필 이미지를 만들어줘요!</div>
         <img src="people2.png" alt="person1" />
       </Introduce>
       <Introduce>
         <img src="people3.png" alt="person1" />
-        <div>코딩미모 사용자와 디스코드로 모각공도 즐겨보세요~!</div>
+        <div>🐾 코딩미모 사용자와 디스코드로 모각공도 즐겨보세요~!</div>
       </Introduce>
     </Container>
   );
@@ -32,7 +32,6 @@ const Container = styled.div`
   }
   div {
     font-size: 23px;
-
     text-align: center;
     margin: 30px 20px;
   }

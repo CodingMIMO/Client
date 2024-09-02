@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-// 커스텀 props 타입 정의
 interface SidebarProps {
   isSidebarOpen: boolean;
 }
@@ -40,6 +39,7 @@ export default function Header() {
 
       <Nav isSidebarOpen={isSidebarOpen}>
         <NavItem onClick={() => handleNavItemClick("/ranking")}>랭킹</NavItem>
+        <NavItem onClick={() => handleNavItemClick("/todo")}>하루계획</NavItem>
         <NavItem onClick={() => handleNavItemClick("/wrapup")}>회고</NavItem>
         <NavItem onClick={() => handleNavItemClick("/mypage")}>마이페이지</NavItem>
         <NavItem onClick={() => handleNavItemClick("/login")}>로그인</NavItem>
@@ -141,7 +141,7 @@ const NavItem = styled.div`
 
 const Title = styled.div`
   font-size: 30px;
-  font-weight: medium;
+  font-weight: bold;
   margin-bottom: 5px;
 `;
 

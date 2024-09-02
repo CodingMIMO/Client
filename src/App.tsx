@@ -9,6 +9,7 @@ import LoginPage from "./pages/LoginPage";
 import Clockpage from "./pages/Clockpage";
 import Mypage from "./pages/Mypage";
 import StudyPage from "./pages/Studypage";
+import TodoPage from "./pages/TodoPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Mainpage />} />
           <Route path="/ranking" element={<Ranking />} />
+          <Route path="/todo" element={<TodoPage />} />
           <Route path="/wrapup" element={<Wrapup />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/clock" element={<Clockpage />} />
