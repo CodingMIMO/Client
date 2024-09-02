@@ -32,7 +32,7 @@ const Container = styled.div`
   }
   div {
     font-size: 23px;
-    font-weight: bold;
+
     text-align: center;
     margin: 30px 20px;
   }

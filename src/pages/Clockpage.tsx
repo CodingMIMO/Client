@@ -19,7 +19,7 @@ export default function Clockpage() {
     const calculateTimeLeft = () => {
       const now = new Date();
       const target = new Date();
-      target.setHours(9, 0, 0, 0); // 오전 9시
+      target.setHours(10, 0, 0, 0); // 오전1 10시
 
       if (now > target) {
         setTimeLeft("미션 마감 시간이 지났습니다.");
@@ -45,7 +45,7 @@ export default function Clockpage() {
     const seconds = String(date.getSeconds()).padStart(2, "0");
     return `${hours}시 ${minutes}분 ${seconds}초`;
   };
-  if (currentTime.getHours() >= 9) {
+  if (currentTime.getHours() >= 22) {
     return (
       <Container>
         <p>오늘의 미션이 마감됐어요!</p>
