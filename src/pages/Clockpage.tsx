@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const CITY = process.env.REACT_APP_CITY;
 
@@ -55,10 +54,11 @@ export default function Clockpage() {
           `https://api.openweathermap.org/data/2.5/weather?q=${CITY}&appid=${API_KEY}&units=metric`
         );
         const data = await response.json();
+        console.log(data);
         setWeather({
           temp: data.main.temp,
           description: data.weather[0].description,
-          icon: `http://openweathermap.org/img/wn/${data.weather[0].icon}.png`,
+          icon: `http://openweathermap.org/img/w/${data.weather[0].icon}.png`,
         });
       } catch (error) {
         console.error("Failed to fetch weather data", error);
@@ -75,33 +75,45 @@ export default function Clockpage() {
     return `${hours}시 ${minutes}분 ${seconds}초`;
   };
 
-  if (currentTime.getHours() >= 22) {
+  if (currentTime.getHours() >= 1) {
     return (
-      <Container>
+      <AfterContainer>
         <p>오늘의 미션이 마감됐어요!</p>
         <button onClick={() => navigate("/wrapup")}>회고 쓰러 가기</button>
-      </Container>
+      </AfterContainer>
     );
   }
 
   return (
     <Container>
-      {weather && (
-        <WeatherContainer>
-          <img src={weather.icon} alt="weather icon" />
-          <p>
-            현재 {CITY}의 날씨: {weather.temp}°C, {weather.description}
-          </p>
-        </WeatherContainer>
-      )}
+      <CardContainer>
+        {weather && (
+          <WeatherCard>
+            <WeatherInfo>
+              <p>🌤️ 오늘의 날씨</p>
+              <Temperature>{weather.temp}°C</Temperature>
+              <Description>{weather.description}</Description>
+            </WeatherInfo>
+          </WeatherCard>
+        )}
+        <ClockCard>
+          <WeatherInfo>
+            <p>⏰ 현재 시간</p>
+            <TimeDisplay>{formatTime(currentTime)}</TimeDisplay>
+          </WeatherInfo>
+
+        </ClockCard>
+      </CardContainer>
+      <MissonContainer>
       <img src="clock.png" alt="clock" />
       <p>
         오늘의 미션 마감까지
         <Time> {timeLeft} </Time>
         남았어요!
       </p>
-      <p>현재 시간 : {formatTime(currentTime)}</p>
-      <button onClick={() => navigate("/wrapup")}>오늘의 계획 쓰러 가기</button>
+      <button onClick={() => navigate("/todo")}>하루 다짐 쓰러 가기</button>
+      </MissonContainer>
+      
     </Container>
   );
 }
@@ -110,7 +122,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
   height: 60vh;
 
   img {
@@ -142,25 +153,91 @@ const Container = styled.div`
   }
 `;
 
-const WeatherContainer = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-
-  img {
-    width: 50px;
-    height: 50px;
-    margin-right: 10px;
-  }
-
-  p {
-    font-size: 18px;
-    text-align: center;
-  }
-`;
-
 const Time = styled.span`
   font-weight: bold;
   font-size: 24px;
   color: #ff4c4c;
+`;
+
+const MissonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 50%;
+`;
+
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 25%;
+`;
+
+const WeatherCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+`;
+
+
+const WeatherInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  p {
+    font-size: 20px;
+    margin: 0;
+  }
+`;
+
+const ClockCard = styled.div`
+  display: flex;
+  width:75%;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  margin-bottom: 20px;
+`;
+
+const Temperature = styled.span`
+  font-size: 40px;
+  font-weight: bold;
+`;
+
+const Description = styled.span`
+  font-size: 20px;
+  color: #555;
+`;
+
+
+const TimeDisplay = styled.span`
+  font-size: 40px;
+  font-weight: bold;
+`;
+
+const AfterContainer = styled(Container)`
+  flex-direction: column;
+  gap: 20px;
+  img {
+    width: 30%;
+    max-width: 200px;
+  }
+  p {
+    font-size: 30px;
+    font-weight: bold;s
+    text-align: center;
+  }
+  button {
+    margin-top: 20px;
+  }
 `;

@@ -39,7 +39,7 @@ export default function Header() {
 
       <Nav isSidebarOpen={isSidebarOpen}>
         <NavItem onClick={() => handleNavItemClick("/ranking")}>랭킹</NavItem>
-        <NavItem onClick={() => handleNavItemClick("/todo")}>하루계획</NavItem>
+        <NavItem onClick={() => handleNavItemClick("/todo")}>하루다짐</NavItem>
         <NavItem onClick={() => handleNavItemClick("/wrapup")}>회고</NavItem>
         <NavItem onClick={() => handleNavItemClick("/mypage")}>마이페이지</NavItem>
         <NavItem onClick={() => handleNavItemClick("/login")}>로그인</NavItem>
