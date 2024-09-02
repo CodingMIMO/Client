@@ -4,14 +4,14 @@ import styled from "styled-components";
 export default function Mainpage() {
   return (
     <Container>
-      <div>코딩 미모와 함께 미라클코딩모닝하세요~!</div>
+      <div>당하그와 함께 하루를 계획하고 회고하는 습관을 길러보세요!</div>
       <img src="sun2.png" alt="sun2" />
       <Introduce>
         <img src="people1.png" alt="person1" />
-        <div>오전 5시부터 9시까지 깃허브 잔디를 심어보세요.</div>
+        <div>매일 오전 10시까지 하루 일정을 계획해요!</div>
       </Introduce>
       <Introduce>
-        <div>회고를 작성하면 나만의 프로필 이미지를 만들 수 있어요!</div>{" "}
+        <div>24시간 이내에 회고를 작성하면 나만의 프로필 이미지를 만들 수 있어요!</div>
         <img src="people2.png" alt="person1" />
       </Introduce>
       <Introduce>
