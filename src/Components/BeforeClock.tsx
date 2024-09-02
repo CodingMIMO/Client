@@ -5,10 +5,11 @@ import styled from "styled-components";
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const CITY = process.env.REACT_APP_CITY;
 
-export default function BeforeClock() {
+export default function Clockpage() {
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [timeLeft, setTimeLeft] = useState("");
+  const [isMissionOver, setIsMissionOver] = useState(false);
   const [weather, setWeather] = useState<{
     temp: number;
     description: string;
@@ -27,10 +28,10 @@ export default function BeforeClock() {
     const calculateTimeLeft = () => {
       const now = new Date();
       const target = new Date();
-      target.setHours(22, 0, 0, 0); // 오후 10시
+      target.setHours(10, 0, 0, 0); // 오후 10시
 
       if (now > target) {
-        setTimeLeft("미션 마감 시간이 지났습니다.");
+        setIsMissionOver(true);
       } else {
         const difference = target.getTime() - now.getTime();
         const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
@@ -38,6 +39,7 @@ export default function BeforeClock() {
         const seconds = Math.floor((difference / 1000) % 60);
 
         setTimeLeft(`${hours}시간 ${minutes}분 ${seconds}초`);
+        setIsMissionOver(false);
       }
     };
 
@@ -75,8 +77,6 @@ export default function BeforeClock() {
     return `${hours}시 ${minutes}분 ${seconds}초`;
   };
 
-
-
   return (
     <Container>
       <CardContainer>
@@ -94,19 +94,23 @@ export default function BeforeClock() {
             <p>⏰ 현재 시간</p>
             <TimeDisplay>{formatTime(currentTime)}</TimeDisplay>
           </WeatherInfo>
-
         </ClockCard>
       </CardContainer>
       <MissonContainer>
-      <img src="clock.png" alt="clock" />
-      <p>
-        오늘의 미션 마감까지
-        <Time> {timeLeft} </Time>
-        남았어요!
-      </p>
-      <button onClick={() => navigate("/todo")}>하루 다짐 쓰러 가기</button>
+        <img src="clock.png" alt="clock" />
+        {isMissionOver ? (
+          <p>미션 마감 시간이 지났습니다.</p>
+        ) : (
+          <>
+            <p>
+              오늘의 미션 마감까지
+              <Time> {timeLeft} </Time>
+              남았어요!
+            </p>
+            <button onClick={() => navigate("/todo")}>하루다짐 쓰러 가기</button>
+          </>
+        )}
       </MissonContainer>
-      
     </Container>
   );
 }
@@ -178,7 +182,6 @@ const WeatherCard = styled.div`
   margin-bottom: 20px;
 `;
 
-
 const WeatherInfo = styled.div`
   display: flex;
   flex-direction: column;
@@ -192,7 +195,7 @@ const WeatherInfo = styled.div`
 
 const ClockCard = styled.div`
   display: flex;
-  width:75%;
+  width: 75%;
   flex-direction: column;
   align-items: center;
   background: white;
@@ -212,9 +215,7 @@ const Description = styled.span`
   color: #555;
 `;
 
-
 const TimeDisplay = styled.span`
   font-size: 40px;
   font-weight: bold;
 `;
-

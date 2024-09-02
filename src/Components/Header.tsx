@@ -14,11 +14,6 @@ export default function Header() {
     setSidebarOpen(!isSidebarOpen);
   };
 
-  const handleNavItemClick = (path: string) => {
-    navigate(path);
-    setSidebarOpen(false);  // 사이드바 닫기
-  };
-
   return (
     <HeaderContainer>
       <LogoContainer onClick={() => navigate("/")}>
@@ -38,18 +33,17 @@ export default function Header() {
       </HamburgerMenu>
 
       <Nav isSidebarOpen={isSidebarOpen}>
-        <NavItem onClick={() => handleNavItemClick("/ranking")}>랭킹</NavItem>
-        <NavItem onClick={() => handleNavItemClick("/todo")}>하루다짐</NavItem>
-        <NavItem onClick={() => handleNavItemClick("/wrapup")}>회고</NavItem>
-        <NavItem onClick={() => handleNavItemClick("/mypage")}>마이페이지</NavItem>
-        <NavItem onClick={() => handleNavItemClick("/login")}>로그인</NavItem>
-        <NavItem onClick={() => handleNavItemClick("/study")}>스터디</NavItem>
+        <NavItem onClick={() => navigate("/ranking")}>랭킹</NavItem>
+        <NavItem onClick={() => navigate("/todo")}>하루다짐</NavItem>
+        <NavItem onClick={() => navigate("/wrapup")}>회고</NavItem>
+        <NavItem onClick={() => navigate("/mypage")}>마이페이지</NavItem>
+        <NavItem onClick={() => navigate("/login")}>로그인</NavItem>
+
       </Nav>
     </HeaderContainer>
   );
 }
 
-// HamburgerMenu에 대한 props 타입 정의
 interface HamburgerMenuProps {
   isSidebarOpen: boolean;
 }

@@ -16,7 +16,7 @@ export default function Clockpage() {
   }, []);
 
 
-  if (currentTime.getHours() >= 22) {
+  if (currentTime.getHours() >= 88) {
     return (
       <AfterClock/>
     );
