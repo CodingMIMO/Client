@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Login from "../Components/Login";
 
 
 export default function Mainpage() {
@@ -8,7 +9,6 @@ export default function Mainpage() {
     const clientId = process.env.REACT_APP_CLENT_ID;
     const redirectUri = "http://localhost:3000/auth/callback";
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user,user:email`;
-    console.log(clientId)
     window.location.href = githubAuthUrl;
   };
 
@@ -28,7 +28,7 @@ export default function Mainpage() {
         <img src="people3.png" alt="person1" />
         <div>🐾 코딩미모 사용자와 디스코드로 모각공도 즐겨보세요~!</div>
       </Introduce>
-      <LoginButton onClick={onClickSocialLogin}>Github로 3초 만에 로그인하기</LoginButton>
+     <Login/>
     </Container>
   );
 }
