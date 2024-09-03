@@ -11,6 +11,7 @@ import StudyPage from "./pages/Studypage";
 import TodoPage from "./pages/TodoPage";
 import AuthCallback from "./Components/AuthCallback";
 import LoginPage from "./pages/LoginPage";
+import Register from "./pages/RegisterPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/mypage" element={<Mypage />} />
           <Route path="/study" element={<StudyPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register/>} />
           <Route path="*" element={<div>Not Found</div>} />
         </Routes>
       </BrowserRouter>

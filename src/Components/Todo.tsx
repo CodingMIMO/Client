@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-
+import axios from "axios";
 
 const Todo: React.FC = () => {
   const [tasks, setTasks] = useState<string[]>([""]);
-  const [isModalOpen, setIsModalOpen] = useState(false); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleTaskChange = (index: number, value: string) => {
     const newTasks = [...tasks];
@@ -21,13 +21,24 @@ const Todo: React.FC = () => {
     setTasks(newTasks);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsModalOpen(true);
+
+    const userId = "yourUserId"; // 여기서 userId 값을 설정하세요
+    try {
+      await axios.post(`http://localhost:8000/api/v1/todo`, {
+        userId: userId,
+        tasks: tasks.filter(task => task.trim() !== ""), // 빈 항목은 제외
+      });
+      console.log("Todo 전송 성공");
+    } catch (error) {
+      console.error("Todo 전송 실패", error);
+    }
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); 
+    setIsModalOpen(false);
   };
 
   return (
@@ -68,12 +79,11 @@ const Todo: React.FC = () => {
             <p>제출이 완료되었습니다!</p>
             <p>24시간 내에 회고를 작성해주세요 🤗</p>
             <CloseButtonContainer>
-                <div></div>
-            <CloseButton onClick={handleCloseModal}>
-               
-                닫기</CloseButton>
+              <div></div>
+              <CloseButton onClick={handleCloseModal}>
+                닫기
+              </CloseButton>
             </CloseButtonContainer>
-            
           </ModalContent>
         </ModalOverlay>
       )}
@@ -210,6 +220,7 @@ const CloseButtonContainer = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
+
 const CloseButton = styled.button`
   padding: 8px 16px;
   font-size: 16px;

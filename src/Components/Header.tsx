@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
@@ -9,6 +9,21 @@ interface SidebarProps {
 export default function Header() {
   const navigate = useNavigate();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [nickname, setNickname] = useState("");
+
+  useEffect(() => {
+    // 로그인 상태와 닉네임을 로컬 스토리지나 API로부터 가져옴
+    const token = localStorage.getItem("token");
+    const storedNickname = localStorage.getItem("nickname"); // 예시로 로컬 스토리지 사용
+
+    if (token) {
+      setIsLoggedIn(true);
+      if (storedNickname) {
+        setNickname(storedNickname);
+      }
+    }
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -37,8 +52,11 @@ export default function Header() {
         <NavItem onClick={() => navigate("/todo")}>하루다짐</NavItem>
         <NavItem onClick={() => navigate("/wrapup")}>회고</NavItem>
         <NavItem onClick={() => navigate("/mypage")}>마이페이지</NavItem>
-        <NavItem onClick={() => navigate("/login")}>로그인</NavItem>
-
+        {isLoggedIn ? (
+          <NavItem>{nickname}님</NavItem>
+        ) : (
+          <NavItem onClick={() => navigate("/login")}>로그인</NavItem>
+        )}
       </Nav>
     </HeaderContainer>
   );
@@ -117,7 +135,7 @@ const Nav = styled.nav<SidebarProps>`
     right: ${(props) => (props.isSidebarOpen ? "0" : "-250px")};
     width: 250px;
     height: 100%;
-    background-color: #E4E4E4;
+    background-color: #e4e4e4;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     transition: right 0.3s ease-in-out;
     z-index: 10;
@@ -129,7 +147,7 @@ const NavItem = styled.div`
   cursor: pointer;
 
   &:hover {
-    color: #EAAA30;
+    color: #eaaa30;
   }
 `;
 

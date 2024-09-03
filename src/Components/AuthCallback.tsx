@@ -11,7 +11,7 @@ export default function AuthCallback() {
 
     if (code) {
       axios
-        .post("http://localhost:8000/oauth/github/callback", { code }, {
+        .post("http://localhost:8000/api/v1/oauth/github/callback", { code }, {
           headers: {
             'Content-Type': 'application/json'
           }
@@ -27,11 +27,10 @@ export default function AuthCallback() {
         })
         .catch((error) => {
           console.error("GitHub OAuth 실패:", error);
-         // 오류 발생 시 홈으로 리디렉션
+          // 오류 발생 시 홈으로 리디렉션
         });
     } else {
-      console.error("GitHub OAuth 코드가 없음");
-     
+      console.error("GitHub OAuth 코드 또는 state가 없음");
     }
   }, [navigate]);
 
