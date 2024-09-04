@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import TodayRanking from "../Components/TodayRanking";
-import TotalRanking from "../Components/TotalRanking";
 
 export default function RankingPage() {
-  const [selectedTab, setSelectedTab] = useState("today");
 
   return (
     <Container>
@@ -13,7 +11,7 @@ export default function RankingPage() {
         
       </Header>
       <Content>
-        {selectedTab === "today" && <TodayRanking />}
+        <TodayRanking />
     
       </Content>
     </Container>
@@ -33,24 +31,6 @@ const Title = styled.h1`
   font-weight: bold;
 `;
 
-const Subtitle = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  margin-top: 10px;
-`;
-
-const Tab = styled.div<{ isSelected: boolean }>`
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  color: ${({ isSelected }) => (isSelected ? "black" : "gray")};
-  border-bottom: ${({ isSelected }) =>
-    isSelected ? "2px solid black" : "none"};
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 const Content = styled.div`
   margin-top: 20px;

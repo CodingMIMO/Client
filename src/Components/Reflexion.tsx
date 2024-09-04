@@ -191,20 +191,5 @@ const SubmitButton = styled.button`
   }
 `;
 
-const ErrorMessage = styled.p`
-  color: red;
-  text-align: center;
-`;
-
-const ImagePreview = styled.div`
-  text-align: center;
-  margin-top: 20px;
-  img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  }
-`;
 
 export default Reflexion;

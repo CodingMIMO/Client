@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Login from "../Components/Login";
 
 export default function Mainpage() {
   const navigate = useNavigate();
@@ -15,12 +14,7 @@ export default function Mainpage() {
     }
   }, [navigate]);
 
-  const onClickSocialLogin = () => {
-    const clientId = process.env.REACT_APP_CLIENT_ID;
-    const redirectUri = "http://43.200.219.68:3000/auth/callback";
-    const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user,user:email`;
-    window.location.href = githubAuthUrl;
-  };
+
 
   return (
     <Container>
@@ -70,17 +64,3 @@ const Introduce = styled.div`
   }
 `;
 
-const LoginButton = styled.button`
-  margin: 5%;
-  padding: 15px 30px;
-  font-size: 30px;
-  border-radius: 50px;
-  cursor: pointer;
-  border: 1px solid white;
-  background-color: black;
-  color: white;
-
-  &:hover {
-    scale: 1.05;
-  }
-`;
