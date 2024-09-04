@@ -5,6 +5,7 @@ import axios from "axios";
 const Todo: React.FC = () => {
   const [tasks, setTasks] = useState<string[]>([""]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState(""); // 모달 메시지를 저장할 상태 변수
 
   const handleTaskChange = (index: number, value: string) => {
     const newTasks = [...tasks];
@@ -23,17 +24,27 @@ const Todo: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsModalOpen(true);
 
-    const userId = "yourUserId"; // 여기서 userId 값을 설정하세요
+    const userId = localStorage.getItem("user_id"); // 로그인 시 저장된 user_id
     try {
-      await axios.post(`http://localhost:8000/api/v1/todo`, {
-        userId: userId,
-        tasks: tasks.filter(task => task.trim() !== ""), // 빈 항목은 제외
+      console.log(userId, tasks);
+      const response = await axios.post(`http://43.200.219.68:8000/api/v1/todo`, {
+        user_id: userId,
+        tasks: tasks.filter((task) => task.trim() !== ""), // 빈 항목은 제외
       });
-      console.log("Todo 전송 성공");
-    } catch (error) {
-      console.error("Todo 전송 실패", error);
+
+      if (response.status === 200) {
+        setModalMessage("제출이 완료되었습니다! 24시간 내에 회고를 작성해주세요 🤗");
+      }
+    } catch (error : any) {
+      if (error.response && error.response.status === 400) {
+        // 서버에서 이미 제출된 경우의 에러 메시지를 표시
+        setModalMessage("오늘의 하루다짐을 이미 제출했어요!");
+      } else {
+        setModalMessage("제출에 실패했습니다. 다시 시도해주세요.");
+      }
+    } finally {
+      setIsModalOpen(true);
     }
   };
 
@@ -44,8 +55,10 @@ const Todo: React.FC = () => {
   return (
     <Container>
       <Title>
-        오늘도 힘차게 시작해볼까요? 💪 
-        <Subtitle>하루다짐을 작성하고 24시간 이내에 회고를 작성하면 그림을 그려드려요!</Subtitle>
+        오늘도 힘차게 시작해볼까요? 💪
+        <Subtitle>
+          하루다짐을 작성하고 24시간 이내에 회고를 작성하면 그림을 그려드려요!
+        </Subtitle>
       </Title>
       <Form onSubmit={handleSubmit}>
         <Label>하루다짐 작성</Label>
@@ -76,13 +89,10 @@ const Todo: React.FC = () => {
       {isModalOpen && (
         <ModalOverlay>
           <ModalContent>
-            <p>제출이 완료되었습니다!</p>
-            <p>24시간 내에 회고를 작성해주세요 🤗</p>
+            <p>{modalMessage}</p>
             <CloseButtonContainer>
               <div></div>
-              <CloseButton onClick={handleCloseModal}>
-                닫기
-              </CloseButton>
+              <CloseButton onClick={handleCloseModal}>닫기</CloseButton>
             </CloseButtonContainer>
           </ModalContent>
         </ModalOverlay>

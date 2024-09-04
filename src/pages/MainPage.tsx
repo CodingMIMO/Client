@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Login from "../Components/Login";
 
-
 export default function Mainpage() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // 로그인 상태 확인
+    const token = localStorage.getItem("token");
+    if (token) {
+      // 로그인된 상태라면 /clock 페이지로 리다이렉트
+      navigate("/clock");
+    }
+  }, [navigate]);
 
   const onClickSocialLogin = () => {
-    const clientId = process.env.REACT_APP_CLENT_ID;
-    const redirectUri = "http://localhost:3000/auth/callback";
+    const clientId = process.env.REACT_APP_CLIENT_ID;
+    const redirectUri = "http://43.200.219.68:3000/auth/callback";
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}&scope=read:user,user:email`;
     window.location.href = githubAuthUrl;
   };
@@ -22,13 +32,12 @@ export default function Mainpage() {
       </Introduce>
       <Introduce>
         <div>🌅 24시간 이내에 회고를 작성하면 stable-diffusion이 나만의 프로필 이미지를 만들어줘요!</div>
-        <img src="people2.png" alt="person1" />
+        <img src="people2.png" alt="person2" />
       </Introduce>
       <Introduce>
-        <img src="people3.png" alt="person1" />
+        <img src="people3.png" alt="person3" />
         <div>🐾 코딩미모 사용자와 디스코드로 모각공도 즐겨보세요~!</div>
       </Introduce>
-     <Login/>
     </Container>
   );
 }

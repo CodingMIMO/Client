@@ -28,7 +28,7 @@ export default function Clockpage() {
     const calculateTimeLeft = () => {
       const now = new Date();
       const target = new Date();
-      target.setHours(10, 0, 0, 0); // 오후 10시
+      target.setHours(22, 0, 0, 0); // 오후 10시
 
       if (now > target) {
         setIsMissionOver(true);

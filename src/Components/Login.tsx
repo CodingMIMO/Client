@@ -1,20 +1,23 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import Modal from "react-modal";
+
+Modal.setAppElement('#root');  // App의 루트 엘리먼트를 지정합니다.
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [nickname, setNickname] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
 
     try {
-      const response = await axios.post("http://localhost:8000/api/v1/login", {
+      const response = await axios.post("http://43.200.219.68:8000/api/v1/login", {
         email: email,
         password: password,
       }, {
@@ -23,27 +26,29 @@ export default function Login() {
         }
       });
 
+      const userNickname = response.data.nickname;
+      console.log("Login Success:", response);
       localStorage.setItem("token", response.data.access_token);
-      navigate("/");
+      localStorage.setItem("user_id", response.data.user_id);
+      localStorage.setItem("nickname", userNickname);
 
-    } catch (error: any) {
-      if (error.response) {
-        if (error.response.status === 401) {
-          setError("잘못된 이메일 또는 비밀번호입니다.");
-        } else {
-          setError("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
-        }
-      } else if (error.request) {
-        setError("서버에 연결할 수 없습니다. 인터넷 연결을 확인해주세요.");
-      } else {
-        setError("알 수 없는 오류가 발생했습니다.");
-      }
+      setNickname(userNickname);
+      setModalOpen(true);
+
+    } catch (error) {
       console.error("Login failed:", error);
+      // 오류 처리 (예: 알림 표시)
     }
   };
 
-  const handleRegisterRedirect = () => {
-    navigate("/register"); // 회원가입 페이지로 이동
+  const closeModal = () => {
+    setModalOpen(false);
+    navigate("/");  // 모달 닫히면서 홈으로 이동
+  };
+
+  // 회원가입 페이지로 이동하는 함수
+  const goToRegister = () => {
+    navigate("/register"); // 'Register' 페이지로 이동
   };
 
   return (
@@ -66,17 +71,36 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             required 
           />
-          {error && <ErrorMessage>{error}</ErrorMessage>}
           <SubmitButton type="submit">Login</SubmitButton>
-          <RegisterButton type="button" onClick={handleRegisterRedirect}>
-            회원가입
-          </RegisterButton>
         </Form>
+        <RegisterButton onClick={goToRegister}>회원가입</RegisterButton>
+
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          contentLabel="Welcome Modal"
+          style={{
+            content: {
+              top: '50%',
+              left: '50%',
+              right: 'auto',
+              bottom: 'auto',
+              marginRight: '-50%',
+              transform: 'translate(-50%, -50%)',
+              padding: '20px',
+              textAlign: 'center'
+            },
+          }}
+        >
+          <h2>{nickname}님 환영합니다!</h2>
+          <button onClick={closeModal}>확인</button>
+        </Modal>
       </Content>
     </Container>
   );
 }
 
+// styled-components를 사용한 스타일링
 const Container = styled.div`
   display: flex;
   justify-content: center;
@@ -135,7 +159,6 @@ const SubmitButton = styled.button`
   color: white;
   border: none;
   transition: all 0.3s ease;
-  margin-bottom: 15px;
 
   &:hover {
     background-color: #555;
@@ -149,20 +172,15 @@ const RegisterButton = styled.button`
   font-weight: bold;
   border-radius: 50px;
   cursor: pointer;
-  background-color: #ff6b6b;
+  background-color: #FFD81C;
   color: white;
   border: none;
   transition: all 0.3s ease;
+  width: 100%;
+  margin-top:10px;
 
   &:hover {
-    background-color: #ff4d4d;
+  
     transform: scale(1.05);
   }
-`;
-
-const ErrorMessage = styled.div`
-  color: red;
-  margin-bottom: 15px;
-  font-size: 14px;
-  text-align: center;
 `;

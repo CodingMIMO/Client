@@ -15,7 +15,7 @@ export default function Header() {
   useEffect(() => {
     // 로그인 상태와 닉네임을 로컬 스토리지나 API로부터 가져옴
     const token = localStorage.getItem("token");
-    const storedNickname = localStorage.getItem("nickname"); // 예시로 로컬 스토리지 사용
+    const storedNickname = localStorage.getItem("nickname");
 
     if (token) {
       setIsLoggedIn(true);
@@ -27,6 +27,14 @@ export default function Header() {
 
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleLogout = () => {
+    // 로그아웃 시 토큰과 닉네임을 삭제하고 로그인 페이지로 리다이렉트
+    localStorage.removeItem("token");
+    localStorage.removeItem("nickname");
+    setIsLoggedIn(false);
+    navigate("/login");
   };
 
   return (
@@ -48,12 +56,14 @@ export default function Header() {
       </HamburgerMenu>
 
       <Nav isSidebarOpen={isSidebarOpen}>
-        <NavItem onClick={() => navigate("/ranking")}>랭킹</NavItem>
+       
         <NavItem onClick={() => navigate("/todo")}>하루다짐</NavItem>
         <NavItem onClick={() => navigate("/wrapup")}>회고</NavItem>
-        <NavItem onClick={() => navigate("/mypage")}>마이페이지</NavItem>
         {isLoggedIn ? (
-          <NavItem>{nickname}님</NavItem>
+          <>
+            <NavItem>{nickname}님</NavItem>
+            <NavItem onClick={handleLogout}>로그아웃</NavItem>
+          </>
         ) : (
           <NavItem onClick={() => navigate("/login")}>로그인</NavItem>
         )}
@@ -61,7 +71,6 @@ export default function Header() {
     </HeaderContainer>
   );
 }
-
 interface HamburgerMenuProps {
   isSidebarOpen: boolean;
 }

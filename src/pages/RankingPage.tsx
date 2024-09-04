@@ -10,24 +10,11 @@ export default function RankingPage() {
     <Container>
       <Header>
         <Title>코딩미모 랭킹</Title>
-        <Subtitle>
-          <Tab
-            isSelected={selectedTab === "today"}
-            onClick={() => setSelectedTab("today")}
-          >
-            오늘의 랭킹
-          </Tab>
-          <Tab
-            isSelected={selectedTab === "total"}
-            onClick={() => setSelectedTab("total")}
-          >
-            누적 랭킹
-          </Tab>
-        </Subtitle>
+        
       </Header>
       <Content>
         {selectedTab === "today" && <TodayRanking />}
-        {selectedTab === "total" && <TotalRanking />}
+    
       </Content>
     </Container>
   );
