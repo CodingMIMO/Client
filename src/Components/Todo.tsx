@@ -28,7 +28,7 @@ const Todo: React.FC = () => {
   
     const userId = localStorage.getItem("user_id"); // 로그인 시 저장된 user_id
     try {
-      const response = await axios.post(`http://43.200.219.68:8000/api/v1/todo`, {
+      const response = await axios.post(`/api/v1/todo`, {
         user_id: userId,
         tasks: tasks.filter((task) => task.trim() !== ""), // 빈 항목은 제외
       });

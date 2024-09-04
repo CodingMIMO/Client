@@ -11,7 +11,7 @@ export default function AuthCallback() {
 
     if (code) {
       axios
-        .post("http://43.200.219.68/:8000/api/v1/oauth/github/callback", { code }, {
+        .post("api/v1/oauth/github/callback", { code }, {
           headers: {
             'Content-Type': 'application/json'
           }
