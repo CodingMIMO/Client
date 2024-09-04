@@ -17,7 +17,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://43.200.219.68:8000/api/v1/login", {
+      const response = await axios.post("https://43.200.219.68:8000/api/v1/login", {
         email: email,
         password: password,
       }, {
