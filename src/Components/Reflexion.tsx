@@ -16,7 +16,7 @@ const Reflexion: React.FC<Props> = ({ onNext, onImageCreated }) => {
     const fetchTodos = async () => {
       const userId = localStorage.getItem("user_id");
       try {
-        const response = await axios.get(`/api/v1/todo/${userId}`);
+        const response = await axios.get(`http://43.200.219.68:8000/api/v1/todo/${userId}`);
         if (response.data && Array.isArray(response.data.todos) && response.data.todos.length > 0) {
           const splitTodos = response.data.todos[0].split('\n');
           setTodos(splitTodos);
@@ -40,7 +40,7 @@ const Reflexion: React.FC<Props> = ({ onNext, onImageCreated }) => {
     onNext(); // 바로 CreatingProfileImage로 넘어가기
 
     try {
-      const response = await axios.patch(`/api/v1/reflections`, {
+      const response = await axios.patch(`http://43.200.219.68:8000/api/v1/reflections`, {
         user_id: userId,
         content: reflection,
       });
